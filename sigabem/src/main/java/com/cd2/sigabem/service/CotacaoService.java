@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import javax.persistence.PersistenceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -13,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import com.cd2.sigabem.controller.dto.CepDTO;
 import com.cd2.sigabem.exception.CepIncorretoException;
 import com.cd2.sigabem.exception.CepInexistenteException;
-import com.cd2.sigabem.exception.EntidadeNaoEncontradaException;
 import com.cd2.sigabem.model.Cotacao;
 import com.cd2.sigabem.repository.CotacaoRepository;
 
@@ -65,14 +63,6 @@ public class CotacaoService {
       throw new CepIncorretoException("Um ou mais CEPs foram informados de forma incorreta!");
     } catch (PersistenceException e) {
       throw new CepInexistenteException("Um ou mais CEPs informados são inexistentes!");
-    }
-  }
-
-  public void excluir(Long id) {
-    try {
-      cotacaoRepository.remover(id);
-    } catch (EmptyResultDataAccessException e) {
-      throw new EntidadeNaoEncontradaException(String.format("Não existe uma cotação com código %d", id));
     }
   }
 }

@@ -7,7 +7,5 @@ import com.cd2.sigabem.model.Cotacao;
 public interface CotacaoRepository {
   
   List<Cotacao> listar();
-  Cotacao buscar(Long id);
   Cotacao salvar(Cotacao cotacao);
-  void remover(Long id);
 }
