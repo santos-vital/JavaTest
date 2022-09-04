@@ -5,13 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cd2.sigabem.model.Cotacao;
 import com.cd2.sigabem.repository.CotacaoRepository;
 
-@Component
+@Repository
 public class CotacaoRepositoryImpl implements CotacaoRepository{
   
   @PersistenceContext
