@@ -31,6 +31,7 @@ public class CotacaoRepositoryImpl implements CotacaoRepository{
   @Transactional
   @Override
   public Cotacao salvar(Cotacao cotacao) {
+
     return manager.merge(cotacao);
   }
 
