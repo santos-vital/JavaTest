@@ -30,11 +30,10 @@ public class CotacaoService {
   public Cotacao salvar(Cotacao cotacao) {
     try {
       LocalDate dataConsulta = LocalDate.now();
+      cotacao.setDataConsulta(dataConsulta);
 
       CepDTO cepOrigem = consultaCep(cotacao.getCepOrigem());
       CepDTO cepDestino = consultaCep(cotacao.getCepDestino());
-
-      cotacao.setDataConsulta(dataConsulta);
 
       if(cotacao.getId() == null || cotacao.getId() <= 0) {
         cotacao.setCepOrigem(cepOrigem.getCep());
@@ -46,7 +45,7 @@ public class CotacaoService {
         cotacao.setDataPrevistaEntrega(dataConsulta.plusDays(1));
     
         cotacao.setVlTotalFrete(valorFrete);
-      } else if(cepOrigem.getLocalidade().equals(cepDestino.getLocalidade())) {
+      } else if(cepOrigem.getUf().equals(cepDestino.getUf())) {
         double valorFrete = cotacao.getPeso() - (cotacao.getPeso() * 0.75);
         cotacao.setDataPrevistaEntrega(dataConsulta.plusDays(3));
     
@@ -59,6 +58,7 @@ public class CotacaoService {
       }
 
       return cotacaoRepository.salvar(cotacao);
+      
     } catch (HttpClientErrorException e) {
       throw new CepIncorretoException("Um ou mais CEPs foram informados de forma incorreta!");
     } catch (PersistenceException e) {
